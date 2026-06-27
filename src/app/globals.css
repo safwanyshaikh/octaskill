@@ -14,8 +14,8 @@
   --color-grey: #f4f5f7;
   --color-grey-200: #e7e9ee;
   --color-grey-500: #5b6472;
-  --color-gold: #b89150;
-  --color-gold-soft: #cdab6d;
+  --color-gold: #c9a24a;
+  --color-gold-soft: #e2c271;
 
   /* Semantic aliases */
   --color-bg: var(--color-white);
@@ -26,7 +26,10 @@
   --color-ink: var(--color-navy);
 
   /* Typography */
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-manrope), var(--font-geist-sans), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), var(--font-manrope),
+    ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
 
   /* Fluid type scale */
@@ -87,6 +90,7 @@
   h1,
   h2,
   h3 {
+    font-family: var(--font-display);
     text-wrap: balance;
     letter-spacing: -0.02em;
   }

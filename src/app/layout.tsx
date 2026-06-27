@@ -1,11 +1,25 @@
 import type { Metadata, Viewport } from "next";
+import { Space_Grotesk, Manrope } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
-import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600", "700"],
+  variable: "--font-space-grotesk",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-manrope",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -17,15 +31,16 @@ export const metadata: Metadata = {
   applicationName: site.name,
   keywords: [
     "workforce intelligence",
-    "enterprise workforce",
     "human intelligence",
-    "workforce visibility",
+    "global workforce intelligence",
+    "verified talent",
     "deployment readiness",
+    "enterprise workforce",
   ],
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
-    siteName: site.name,
+    siteName: site.parent,
     title: `${site.trademark} — ${site.tagline}`,
     description: site.description,
     url: site.url,
@@ -35,10 +50,7 @@ export const metadata: Metadata = {
     title: `${site.trademark} — ${site.tagline}`,
     description: site.description,
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
@@ -50,7 +62,10 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} ${manrope.variable} ${GeistSans.variable}`}
+    >
       <body>
         <JsonLd />
         <a

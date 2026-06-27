@@ -18,27 +18,27 @@ const WorldMap = dynamic(
 export function Global() {
   return (
     <section
-      id="global"
-      aria-labelledby="global-heading"
+      id="network"
+      aria-labelledby="network-heading"
       className="bg-[var(--color-ink)] py-[clamp(6rem,12vh,11rem)] text-white"
     >
       <Container>
         <div className="mx-auto max-w-2xl text-center">
           <Reveal className="flex justify-center">
-            <Eyebrow>Global</Eyebrow>
+            <Eyebrow>Global Intelligence Network</Eyebrow>
           </Reveal>
           <Reveal as="h2" delay={80}>
             <span
-              id="global-heading"
+              id="network-heading"
               className="mt-8 block text-[length:var(--text-h1)] font-semibold leading-[var(--text-h1--line-height)]"
             >
-              Built for a connected workforce.
+              One network. One standard.
             </span>
           </Reveal>
           <Reveal delay={140}>
             <p className="mx-auto mt-8 max-w-[44ch] text-[length:var(--text-lead)] font-light leading-relaxed text-white/60">
-              One living ecosystem of workforce intelligence, spanning every
-              region you operate in.
+              Boundless human intelligence — on-ground expertise in every region
+              you operate, connected as one living ecosystem.
             </p>
           </Reveal>
         </div>

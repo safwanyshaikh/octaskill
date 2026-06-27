@@ -5,11 +5,15 @@
 
 export const site = {
   name: "WORKFORCE",
+  signature: "SAY",
+  parent: "SAY WORKFORCE",
   legalName: "WORKFORCE",
   trademark: "WORKFORCE™",
   tagline: "Human Intelligence. Redefined.",
+  category: "Global Workforce Intelligence",
+  augmentation: "KAI",
   description:
-    "WORKFORCE is a global enterprise workforce intelligence company. We transform fragmented workforce information into trusted enterprise intelligence.",
+    "WORKFORCE is a global workforce intelligence company building the infrastructure that enables enterprises to discover, verify and deploy human intelligence.",
   url: "https://workforce.example",
 } as const;
 
@@ -24,35 +28,51 @@ export type NavItem = {
  */
 export const primaryNav: NavItem[] = [
   { label: "Platform", href: "/#platform" },
-  { label: "Solutions", href: "/#value" },
+  { label: "Solutions", href: "/#solutions" },
   { label: "Industries", href: "/#industries" },
-  { label: "Insights", href: "/#philosophy" },
-  { label: "Research", href: "/#global" },
-  { label: "Company", href: "/#challenge" },
+  { label: "Intelligence", href: "/#network" },
+  { label: "About", href: "/#philosophy" },
+  { label: "Resources", href: "/#differentiators" },
+  { label: "Careers", href: "/#cta" },
   { label: "Contact", href: "/contact" },
+];
+
+export const footerPillars: { heading: string; body: string }[] = [
+  {
+    heading: "Our Purpose",
+    body: "To build the world’s Human Intelligence infrastructure and unlock human potential at global scale.",
+  },
+  {
+    heading: "Our Promise",
+    body: "The right human intelligence. At the right time. Anywhere in the world.",
+  },
+  {
+    heading: "Our Vision",
+    body: "To be the world’s most trusted Global Workforce Intelligence company and a category leader.",
+  },
 ];
 
 export const footerNav: { heading: string; items: NavItem[] }[] = [
   {
     heading: "Platform",
     items: [
-      { label: "Enterprise Capabilities", href: "/#platform" },
-      { label: "Enterprise Value", href: "/#value" },
-      { label: "Global Network", href: "/#global" },
+      { label: "Intelligence Layers", href: "/#platform" },
+      { label: "Enterprise Solutions", href: "/#solutions" },
+      { label: "Global Network", href: "/#network" },
     ],
   },
   {
     heading: "Company",
     items: [
       { label: "Philosophy", href: "/#philosophy" },
-      { label: "The Challenge", href: "/#challenge" },
       { label: "Industries", href: "/#industries" },
+      { label: "Differentiators", href: "/#differentiators" },
     ],
   },
   {
     heading: "Engage",
     items: [
-      { label: "Request Consultation", href: "/contact" },
+      { label: "Request a Demo", href: "/contact" },
       { label: "Start the Conversation", href: "/contact" },
     ],
   },

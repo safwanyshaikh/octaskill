@@ -48,7 +48,13 @@ animation must serve this belief.
 ## 3. Brand (permanently locked — never alter)
 
 - **Name:** WORKFORCE™
+- **Signature / parent identity:** SAY → **SAY WORKFORCE**
 - **Tagline:** *Human Intelligence. Redefined.*
+- **Category:** Global Workforce Intelligence
+- **Intelligence augmentation sub-brand:** **KAI** — Human Intelligence
+  Augmentation (AI as co-pilot; humans lead)
+- Logo lockup: a gold **W monogram** with a small uppercase **SAY** signature
+  above the WORKFORCE wordmark.
 - Never write another tagline. Never dilute it.
 
 ---
@@ -100,15 +106,15 @@ website, redesign it. If it is trendy but not timeless, remove it.
   "intelligence" animation. **No stock photography, no smiling business people,
   no handshakes, no office or recruitment imagery, no hard hats, no clipart.**
 - **Colour palette (strict — nothing more):** White · Charcoal · Deep Navy ·
-  Soft Grey · **one** premium gold accent. Suggested tokens: white `#FFFFFF`,
-  charcoal `#14161A`, deep navy `#0A1A33` / `#06122A`, soft grey `#F4F5F7`,
-  muted body grey `#5B6472`, gold `#B89150` (a muted brass reads more luxury
-  than a bright gold).
-- **Typography is the hero.** Large headlines, ≤ 8 words and ≤ 3 lines where
-  possible, readable in three seconds. Short paragraphs, generous measure
-  limits (headlines ~14–20ch, body ~60ch). A refined grotesque for display +
-  body (e.g. Geist or Inter); an optional high-contrast serif italic *only* for
-  a single accent word.
+  Soft Grey · **one** premium gold accent. Tokens: white `#FFFFFF`, charcoal
+  `#14161A`, deep navy `#0A1A33` / `#06122A`, soft grey `#F4F5F7`, muted body
+  grey `#5B6472`, **warm amber-gold `#C9A24A`** (with a lighter `#E2C271` for
+  highlights). No bright or childish colours.
+- **Typography is the hero.** Large headlines (~96px desktop), ≤ 8 words and
+  ≤ 3 lines where possible, readable in three seconds. Short paragraphs,
+  generous measure limits (headlines ~14–20ch, body ~60ch). **Space Grotesk**
+  for display headlines + **Manrope** for body/UI (Inter is an acceptable
+  substitute for either).
 
 ---
 
@@ -136,38 +142,44 @@ matter?"* Never exaggerate or use clichés ("leading", "best", "innovative").
 Do not build disconnected sections. Build one narrative. One message per
 section, one primary CTA per page.
 
-1. **Hero** — `WORKFORCE™` / *Human Intelligence. Redefined.* Supporting line:
-   "Understanding human capability before the world demands it." Primary CTA
-   **Explore WORKFORCE**; secondary **Request Enterprise Consultation**.
-   Background: a living global intelligence network — subtle, animated, elegant.
-2. **The Challenge** — "The workforce has changed." Skills evolve · industries
-   transform · talent moves globally · traditional systems struggle to keep
-   pace.
-3. **Why WORKFORCE** — "Intelligence creates better decisions." Workforce
-   visibility · verified capability · smarter hiring · faster deployment ·
-   operational resilience · better outcomes.
-4. **Enterprise Capabilities (9)** — Identity · Skill · Recruitment ·
-   Deployment · Compliance · Knowledge · Decision Intelligence · Enterprise
-   Analytics · Automation. Each explains **business value, not technology.**
-5. **Industries (16)** — Energy · Oil & Gas · Construction · Engineering ·
-   Infrastructure · Manufacturing · Mining · Marine · Healthcare · Technology ·
-   Hospitality · Utilities · Government · Logistics · Industrial Services ·
-   Renewables.
-6. **Enterprise Value (8)** — Reduce operational risk · improve workforce
-   quality · increase deployment readiness · accelerate hiring · strengthen
-   compliance · improve visibility · enable growth · support executive
-   decisions.
-7. **Global** — "Built for a connected workforce." An interactive intelligence
-   map / living global ecosystem with elegant enterprise motion.
-8. **Philosophy** — "Technology processes information. Human Intelligence
-   creates progress. WORKFORCE exists where those two meet."
+1. **Hero** — SAY · `WORKFORCE™` / *Human Intelligence. Redefined.* Supporting
+   line: "Building the infrastructure that enables global enterprises to
+   discover, verify and deploy human intelligence." Primary CTA **Explore
+   Platform**; secondary **Enterprise Solutions**. Background: a luminous,
+   slowly rotating global intelligence globe — subtle, animated, elegant.
+2. **Metrics** — enterprise proof bar that counts up on scroll: 45+ Countries ·
+   2.4M+ Verified Human Intelligence · 1,250+ Enterprise Partners · 96.7%
+   Deployment Assurance · 24/7 Intelligence Network.
+3. **Brand Philosophy** — "AI can analyse. AI can automate. AI cannot own
+   experience, judgement, trust, accountability or human adaptability. Those
+   belong to humans." WORKFORCE combines deep human expertise with intelligent
+   systems (KAI) to deliver assured outcomes at global scale.
+4. **The Platform — Intelligence Layers (9)** — Identity · Skill · Verification
+   · Deployment · Mobility · Compliance · Project · Demand · Future
+   Intelligence. Each explains **business value, not technology.** Powered by
+   **KAI**.
+5. **Enterprise Solutions (8)** — Global Talent Acquisition · Contract &
+   Project Staffing · Managed Workforce Solutions · Executive Search · RPO &
+   Talent Projects · Payroll & Compliance · Mobility & Immigration · KAI
+   Intelligence Platform.
+6. **Mission-Critical Ecosystems (9)** — Energy & Resources · Infrastructure &
+   EPC · Data Centers · Semiconductors · Advanced Manufacturing · Automotive ·
+   Marine & Offshore · Healthcare · Aerospace & Defense.
+7. **Key Differentiators (5)** — Human Intelligence at the core (not
+   replacement, amplification) · Verified, measured, deployable · Global
+   infrastructure, local depth · KAI augmentation · Outcome ownership.
+8. **Global Intelligence Network** — "One network. One standard. Boundless
+   human intelligence." An interactive intelligence map / living global
+   ecosystem with elegant enterprise motion.
 9. **Final CTA** — "The future belongs to organisations that understand Human
-   Intelligence." WORKFORCE™ — *Human Intelligence. Redefined.* **Start the
-   Conversation.**
+   Intelligence." WORKFORCE™ — *Human Intelligence. Redefined.* **Request a
+   Demo** / **Start the Conversation.**
 
-**Navigation:** WORKFORCE · Platform · Solutions · Industries · Insights ·
-Research · Company · Contact — nothing unnecessary.
-**Footer:** quiet, minimal, elegant, timeless, corporate.
+**Navigation:** Platform · Solutions · Industries · Intelligence · About ·
+Resources · Careers · Contact — nothing unnecessary.
+**Footer:** quiet, minimal, timeless, corporate — anchored by the brand
+pillars (Our Purpose · Our Promise · Our Vision) and the SAY WORKFORCE
+signature.
 
 ---
 

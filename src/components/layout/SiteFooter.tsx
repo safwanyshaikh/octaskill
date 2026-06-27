@@ -1,27 +1,34 @@
 import Link from "next/link";
-import { footerNav, site } from "@/lib/site";
+import { footerNav, footerPillars, site } from "@/lib/site";
 import { Container } from "@/components/primitives/Container";
+import { Logo } from "@/components/brand/Logo";
 
-/** Quiet, minimal, timeless footer. */
+/** Quiet, minimal, timeless footer with the brand pillars and signature. */
 export function SiteFooter() {
   const year = new Date().getFullYear();
 
   return (
     <footer className="bg-[var(--color-navy-900)] text-white/70">
       <Container className="py-20">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        {/* Brand pillars */}
+        <div className="grid gap-10 border-b border-white/10 pb-14 sm:grid-cols-3">
+          {footerPillars.map((pillar) => (
+            <div key={pillar.heading}>
+              <h2 className="eyebrow">{pillar.heading}</h2>
+              <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/55">
+                {pillar.body}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        {/* Navigation */}
+        <div className="grid gap-12 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Link
-              href="/"
-              className="text-base font-semibold tracking-[0.14em] text-white"
-            >
-              {site.name}
-              <span className="align-super text-[0.55em] text-[var(--color-gold)]">
-                ™
-              </span>
-            </Link>
-            <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/55">
-              {site.tagline}
+            <Logo />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-white/55">
+              {site.category}. Powered by {site.augmentation} — Human
+              Intelligence Augmentation.
             </p>
           </div>
 
@@ -46,9 +53,9 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-4 border-t border-white/10 pt-8 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {site.trademark}. All rights reserved.
+            © {year} {site.parent}. All rights reserved.
           </p>
           <p className="tracking-[0.14em]">{site.tagline}</p>
         </div>

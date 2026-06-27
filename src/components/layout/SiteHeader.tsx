@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { primaryNav, site } from "@/lib/site";
+import { primaryNav } from "@/lib/site";
 import { Container } from "@/components/primitives/Container";
+import { Logo } from "@/components/brand/Logo";
 
 /** Sticky top navigation. Transparent over the hero, then frosts on scroll. */
 export function SiteHeader() {
@@ -33,20 +34,13 @@ export function SiteHeader() {
       }`}
     >
       <Container className="flex h-20 items-center justify-between text-white">
-        <Link
-          href="/"
-          className="text-base font-semibold tracking-[0.14em]"
-          aria-label={`${site.name} home`}
-        >
-          {site.name}
-          <span className="align-super text-[0.55em] text-[var(--color-gold)]">
-            ™
-          </span>
+        <Link href="/" aria-label="SAY WORKFORCE home">
+          <Logo />
         </Link>
 
         <nav
           aria-label="Primary"
-          className="hidden items-center gap-9 lg:flex"
+          className="hidden items-center gap-7 xl:flex"
         >
           {primaryNav.map((item) => (
             <Link
@@ -62,15 +56,15 @@ export function SiteHeader() {
 
         <Link
           href="/contact"
-          className="hidden rounded-full border border-white/25 px-5 py-2.5 text-sm text-white transition-colors duration-300 hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] lg:inline-flex"
+          className="hidden rounded-full border border-white/25 px-5 py-2.5 text-sm text-white transition-colors duration-300 hover:border-[var(--color-gold)] hover:text-[var(--color-gold)] xl:inline-flex"
         >
-          Request Consultation
+          Request a Demo
         </Link>
 
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="inline-flex flex-col gap-1.5 lg:hidden"
+          className="inline-flex flex-col gap-1.5 xl:hidden"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}
@@ -87,7 +81,7 @@ export function SiteHeader() {
       {open && (
         <div
           id="mobile-nav"
-          className="lg:hidden"
+          className="xl:hidden"
           style={{ height: "calc(100dvh - 5rem)" }}
         >
           <Container className="flex h-full flex-col justify-between bg-[var(--color-navy-900)] pb-12 pt-8">

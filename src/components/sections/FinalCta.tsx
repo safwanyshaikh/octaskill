@@ -6,7 +6,7 @@ import { site } from "@/lib/site";
 export function FinalCta() {
   return (
     <section
-      id="contact-cta"
+      id="cta"
       aria-labelledby="cta-heading"
       className="relative overflow-hidden bg-[var(--color-navy-900)] py-[clamp(7rem,18vh,16rem)] text-white"
     >
@@ -31,8 +31,14 @@ export function FinalCta() {
           </p>
         </Reveal>
 
-        <Reveal delay={200} className="mt-12 flex justify-center">
-          <CtaButton href="/contact">Start the Conversation</CtaButton>
+        <Reveal
+          delay={200}
+          className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
+          <CtaButton href="/contact">Request a Demo</CtaButton>
+          <CtaButton href="/contact" variant="ghost">
+            Start the Conversation
+          </CtaButton>
         </Reveal>
       </Container>
     </section>

@@ -1,9 +1,10 @@
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Reveal } from "@/components/primitives/Reveal";
-import { capabilities } from "@/content/capabilities";
+import { intelligenceLayers } from "@/content/intelligence-layers";
+import { site } from "@/lib/site";
 
-export function Capabilities() {
+export function IntelligenceLayers() {
   return (
     <section
       id="platform"
@@ -13,43 +14,54 @@ export function Capabilities() {
       <Container>
         <div className="max-w-2xl">
           <Reveal>
-            <Eyebrow>Enterprise Capabilities</Eyebrow>
+            <Eyebrow>The Platform</Eyebrow>
           </Reveal>
           <Reveal as="h2" delay={80}>
             <span
               id="platform-heading"
               className="mt-8 block text-[length:var(--text-h1)] font-semibold leading-[var(--text-h1--line-height)]"
             >
-              One platform. Nine intelligences.
+              Our Human Intelligence infrastructure.
             </span>
           </Reveal>
           <Reveal delay={140}>
             <p className="mt-8 text-[length:var(--text-lead)] font-light leading-relaxed text-white/60">
-              Each capability is measured by the business value it creates — not
-              the technology behind it.
+              Nine intelligence layers, each measured by the business value it
+              creates — not the technology behind it.
             </p>
           </Reveal>
         </div>
 
         <div className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-3">
-          {capabilities.map((cap, i) => (
+          {intelligenceLayers.map((layer, i) => (
             <Reveal
-              key={cap.title}
+              key={layer.title}
               delay={(i % 3) * 80}
               className="group bg-[var(--color-ink)] p-8 transition-colors duration-500 hover:bg-white/[0.03] lg:p-10"
             >
-              <span className="font-serif text-sm text-[var(--color-gold)]">
-                {cap.index}
+              <span className="font-[family-name:var(--font-display)] text-sm text-[var(--color-gold)]">
+                {layer.index}
               </span>
               <h3 className="mt-5 text-[length:var(--text-h3)] font-medium tracking-tight">
-                {cap.title}
+                {layer.title}
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-white/55">
-                {cap.description}
+                {layer.description}
               </p>
             </Reveal>
           ))}
         </div>
+
+        <Reveal delay={120}>
+          <p className="mt-12 flex items-center gap-3 text-sm text-white/55">
+            <span className="inline-flex h-2 w-2 rounded-full bg-[var(--color-gold)]" />
+            Powered by{" "}
+            <span className="font-medium text-[var(--color-gold)]">
+              {site.augmentation}
+            </span>{" "}
+            — Human Intelligence Augmentation.
+          </p>
+        </Reveal>
       </Container>
     </section>
   );

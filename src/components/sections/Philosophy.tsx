@@ -11,7 +11,7 @@ export function Philosophy() {
     >
       <Container className="max-w-4xl">
         <Reveal>
-          <Eyebrow>Philosophy</Eyebrow>
+          <Eyebrow>Brand Philosophy</Eyebrow>
         </Reveal>
 
         <Reveal as="h2" delay={80}>
@@ -19,20 +19,23 @@ export function Philosophy() {
             id="philosophy-heading"
             className="mt-10 block text-[length:var(--text-h2)] font-light leading-[1.25] tracking-[-0.02em] text-[var(--color-ink)]"
           >
-            Technology processes information.{" "}
+            AI can analyse. AI can automate.{" "}
             <span className="text-[var(--color-muted)]">
-              Human Intelligence creates progress.
+              AI cannot own experience, judgement, trust, accountability or
+              human adaptability.
             </span>{" "}
-            <span className="font-serif italic text-[var(--color-gold)]">
-              WORKFORCE exists where those two meet.
+            <span className="font-medium text-[var(--color-gold)]">
+              Those belong to humans.
             </span>
           </span>
         </Reveal>
 
         <Reveal delay={160}>
-          <p className="mt-12 max-w-[52ch] text-[length:var(--text-lead)] font-light leading-relaxed text-[var(--color-muted)]">
-            Technology should never replace human judgement. It should amplify
-            human capability. That belief guides every decision we make.
+          <p className="mt-12 max-w-[54ch] text-[length:var(--text-lead)] font-light leading-relaxed text-[var(--color-muted)]">
+            WORKFORCE combines deep human expertise with intelligent systems —{" "}
+            <span className="text-[var(--color-ink)]">KAI</span> — to deliver
+            assured outcomes at global scale. We don’t replace human judgement.
+            We amplify human capability.
           </p>
         </Reveal>
       </Container>

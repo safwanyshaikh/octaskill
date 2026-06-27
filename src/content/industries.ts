@@ -1,20 +1,13 @@
-/** Sixteen industries served. Names only — restraint is the point. */
+/** Mission-critical ecosystems WORKFORCE serves. */
 
 export const industries: string[] = [
-  "Energy",
-  "Oil & Gas",
-  "Construction",
-  "Engineering",
-  "Infrastructure",
-  "Manufacturing",
-  "Mining",
-  "Marine",
+  "Energy & Resources",
+  "Infrastructure & EPC",
+  "Data Centers",
+  "Semiconductors",
+  "Advanced Manufacturing",
+  "Automotive",
+  "Marine & Offshore",
   "Healthcare",
-  "Technology",
-  "Hospitality",
-  "Utilities",
-  "Government",
-  "Logistics",
-  "Industrial Services",
-  "Renewables",
+  "Aerospace & Defense",
 ];

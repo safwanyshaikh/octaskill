@@ -33,7 +33,7 @@ export default function ContactPage() {
             </p>
             <div className="mt-12">
               <CtaButton href="mailto:enterprise@workforce.example">
-                Request Enterprise Consultation
+                Request a Demo
               </CtaButton>
             </div>
           </div>
