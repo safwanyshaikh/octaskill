@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+/* ----------------------------------------------------------------------------
+   WORKFORCE™ — Design tokens
+   Strict palette: white · charcoal · deep navy · soft grey · one gold accent.
+   Components reference semantic tokens only — never raw hex.
+---------------------------------------------------------------------------- */
+@theme {
+  /* Palette */
+  --color-white: #ffffff;
+  --color-charcoal: #14161a;
+  --color-navy: #0a1a33;
+  --color-navy-900: #06122a;
+  --color-grey: #f4f5f7;
+  --color-grey-200: #e7e9ee;
+  --color-grey-500: #5b6472;
+  --color-gold: #b89150;
+  --color-gold-soft: #cdab6d;
+
+  /* Semantic aliases */
+  --color-bg: var(--color-white);
+  --color-fg: var(--color-charcoal);
+  --color-muted: var(--color-grey-500);
+  --color-surface: var(--color-grey);
+  --color-accent: var(--color-gold);
+  --color-ink: var(--color-navy);
+
+  /* Typography */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), Georgia, "Times New Roman", serif;
+
+  /* Fluid type scale */
+  --text-display: clamp(3.25rem, 1rem + 8vw, 8rem);
+  --text-display--line-height: 0.95;
+  --text-h1: clamp(2.5rem, 1rem + 5vw, 5rem);
+  --text-h1--line-height: 1.02;
+  --text-h2: clamp(2rem, 1rem + 3vw, 3.5rem);
+  --text-h2--line-height: 1.05;
+  --text-h3: clamp(1.375rem, 1rem + 1.2vw, 2rem);
+  --text-h3--line-height: 1.15;
+  --text-lead: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+  --text-lead--line-height: 1.5;
+
+  /* Layout */
+  --container-page: 88rem;
+}
+
+/* ----------------------------------------------------------------------------
+   Base layer
+---------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+  }
+
+  /* Anchor targets clear the sticky header */
+  :target,
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv01";
+    line-height: 1.6;
+  }
+
+  ::selection {
+    background-color: var(--color-gold);
+    color: var(--color-navy-900);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-gold);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    letter-spacing: -0.02em;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Components / utilities
+---------------------------------------------------------------------------- */
+@layer components {
+  .eyebrow {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+  }
+
+  .hairline {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-gold) 55%, transparent),
+      transparent
+    );
+  }
+
+  /* Scroll-reveal primitive — animates once, opt-out under reduced motion */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition:
+      opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  [data-reveal][data-revealed="true"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ----------------------------------------------------------------------------
+   Reduced motion — belt and braces
+---------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
