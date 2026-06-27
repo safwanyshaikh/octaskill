@@ -3,9 +3,8 @@ import { Space_Grotesk, Manrope } from "next/font/google";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { site } from "@/lib/site";
-import { SiteHeader } from "@/components/layout/SiteHeader";
-import { SiteFooter } from "@/components/layout/SiteFooter";
 import { JsonLd } from "@/components/seo/JsonLd";
+import { ContentProvider } from "@/components/content/ContentProvider";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -68,15 +67,7 @@ export default function RootLayout({
     >
       <body>
         <JsonLd />
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-[var(--color-gold)] focus:px-5 focus:py-2.5 focus:text-sm focus:text-[var(--color-navy-900)]"
-        >
-          Skip to content
-        </a>
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <ContentProvider>{children}</ContentProvider>
       </body>
     </html>
   );

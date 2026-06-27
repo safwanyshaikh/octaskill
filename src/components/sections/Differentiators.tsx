@@ -1,9 +1,14 @@
+"use client";
+
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Reveal } from "@/components/primitives/Reveal";
-import { differentiators } from "@/content/differentiators";
+import { useContent } from "@/components/content/ContentProvider";
 
 export function Differentiators() {
+  const { content } = useContent();
+  const d = content.differentiators;
+
   return (
     <section
       id="differentiators"
@@ -13,21 +18,21 @@ export function Differentiators() {
       <Container>
         <div className="max-w-2xl">
           <Reveal>
-            <Eyebrow>Key Differentiators</Eyebrow>
+            <Eyebrow>{d.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal as="h2" delay={80}>
             <span
               id="differentiators-heading"
               className="mt-8 block max-w-[16ch] text-[length:var(--text-h1)] font-semibold leading-[var(--text-h1--line-height)] text-[var(--color-ink)]"
             >
-              Why enterprises trust WORKFORCE.
+              {d.heading}
             </span>
           </Reveal>
         </div>
 
         <div className="mt-20 grid gap-x-12 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
-          {differentiators.map((item, i) => (
-            <Reveal key={item.title} delay={(i % 3) * 80}>
+          {d.items.map((item, i) => (
+            <Reveal key={item.id} delay={(i % 3) * 80}>
               <span className="font-[family-name:var(--font-display)] text-sm text-[var(--color-gold)]">
                 {String(i + 1).padStart(2, "0")}
               </span>

@@ -1,10 +1,15 @@
+"use client";
+
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Reveal } from "@/components/primitives/Reveal";
-import { intelligenceLayers } from "@/content/intelligence-layers";
+import { useContent } from "@/components/content/ContentProvider";
 import { site } from "@/lib/site";
 
 export function IntelligenceLayers() {
+  const { content } = useContent();
+  const layers = content.layers;
+
   return (
     <section
       id="platform"
@@ -14,28 +19,27 @@ export function IntelligenceLayers() {
       <Container>
         <div className="max-w-2xl">
           <Reveal>
-            <Eyebrow>The Platform</Eyebrow>
+            <Eyebrow>{layers.eyebrow}</Eyebrow>
           </Reveal>
           <Reveal as="h2" delay={80}>
             <span
               id="platform-heading"
               className="mt-8 block text-[length:var(--text-h1)] font-semibold leading-[var(--text-h1--line-height)]"
             >
-              Our Human Intelligence infrastructure.
+              {layers.heading}
             </span>
           </Reveal>
           <Reveal delay={140}>
             <p className="mt-8 text-[length:var(--text-lead)] font-light leading-relaxed text-white/60">
-              Nine intelligence layers, each measured by the business value it
-              creates — not the technology behind it.
+              {layers.intro}
             </p>
           </Reveal>
         </div>
 
         <div className="mt-20 grid gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 md:grid-cols-2 lg:grid-cols-3">
-          {intelligenceLayers.map((layer, i) => (
+          {layers.items.map((layer, i) => (
             <Reveal
-              key={layer.title}
+              key={layer.id}
               delay={(i % 3) * 80}
               className="group bg-[var(--color-ink)] p-8 transition-colors duration-500 hover:bg-white/[0.03] lg:p-10"
             >

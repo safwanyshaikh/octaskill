@@ -31,9 +31,9 @@ export const primaryNav: NavItem[] = [
   { label: "Solutions", href: "/#solutions" },
   { label: "Industries", href: "/#industries" },
   { label: "Intelligence", href: "/#network" },
-  { label: "About", href: "/#philosophy" },
-  { label: "Resources", href: "/#differentiators" },
-  { label: "Careers", href: "/#cta" },
+  { label: "About", href: "/#founder" },
+  { label: "Insights", href: "/#insights" },
+  { label: "Careers", href: "/#team" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -64,9 +64,9 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
   {
     heading: "Company",
     items: [
-      { label: "Philosophy", href: "/#philosophy" },
-      { label: "Industries", href: "/#industries" },
-      { label: "Differentiators", href: "/#differentiators" },
+      { label: "Founder", href: "/#founder" },
+      { label: "Leadership", href: "/#team" },
+      { label: "Insights", href: "/#insights" },
     ],
   },
   {
@@ -74,6 +74,7 @@ export const footerNav: { heading: string; items: NavItem[] }[] = [
     items: [
       { label: "Request a Demo", href: "/contact" },
       { label: "Start the Conversation", href: "/contact" },
+      { label: "Content Studio", href: "/admin" },
     ],
   },
 ];

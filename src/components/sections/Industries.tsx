@@ -1,9 +1,14 @@
+"use client";
+
 import { Container } from "@/components/primitives/Container";
 import { Eyebrow } from "@/components/primitives/Eyebrow";
 import { Reveal } from "@/components/primitives/Reveal";
-import { industries } from "@/content/industries";
+import { useContent } from "@/components/content/ContentProvider";
 
 export function Industries() {
+  const { content } = useContent();
+  const ind = content.industries;
+
   return (
     <section
       id="industries"
@@ -14,27 +19,26 @@ export function Industries() {
         <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-end">
           <div>
             <Reveal>
-              <Eyebrow>Mission-Critical Ecosystems</Eyebrow>
+              <Eyebrow>{ind.eyebrow}</Eyebrow>
             </Reveal>
             <Reveal as="h2" delay={80}>
               <span
                 id="industries-heading"
                 className="mt-8 block max-w-[14ch] text-[length:var(--text-h1)] font-semibold leading-[var(--text-h1--line-height)] text-[var(--color-ink)]"
               >
-                Where the world gets built.
+                {ind.heading}
               </span>
             </Reveal>
           </div>
           <Reveal delay={120}>
             <p className="max-w-[46ch] text-[length:var(--text-lead)] font-light leading-relaxed text-[var(--color-muted)]">
-              We serve the industries that power economies and build the
-              future — the sectors where workforce certainty is non-negotiable.
+              {ind.intro}
             </p>
           </Reveal>
         </div>
 
         <ul className="mt-16 grid grid-cols-1 gap-px overflow-hidden rounded-2xl border border-[var(--color-grey-200)] bg-[var(--color-grey-200)] sm:grid-cols-2 lg:grid-cols-3">
-          {industries.map((industry, i) => (
+          {ind.items.map((industry, i) => (
             <Reveal
               key={industry}
               as="li"

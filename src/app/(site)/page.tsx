@@ -5,6 +5,10 @@ import { IntelligenceLayers } from "@/components/sections/IntelligenceLayers";
 import { Solutions } from "@/components/sections/Solutions";
 import { Industries } from "@/components/sections/Industries";
 import { Differentiators } from "@/components/sections/Differentiators";
+import { Founder } from "@/components/sections/Founder";
+import { Team } from "@/components/sections/Team";
+import { Testimonials } from "@/components/sections/Testimonials";
+import { Insights } from "@/components/sections/Insights";
 import { Global } from "@/components/sections/Global";
 import { FinalCta } from "@/components/sections/FinalCta";
 
@@ -18,6 +22,10 @@ export default function HomePage() {
       <Solutions />
       <Industries />
       <Differentiators />
+      <Founder />
+      <Team />
+      <Testimonials />
+      <Insights />
       <Global />
       <FinalCta />
     </main>
