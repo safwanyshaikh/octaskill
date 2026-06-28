@@ -45,6 +45,15 @@ export function Insights() {
               delay={(i % 3) * 80}
               className="group flex flex-col bg-[var(--color-bg)] p-8 transition-colors duration-300 hover:bg-[var(--color-surface)] lg:p-10"
             >
+              {item.image && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={item.image}
+                  alt=""
+                  className="mb-6 aspect-[16/9] w-full rounded-lg object-cover"
+                  loading="lazy"
+                />
+              )}
               <span className="text-xs uppercase tracking-[0.16em] text-[var(--color-gold)]">
                 {item.date}
               </span>

@@ -21,6 +21,16 @@ export function Hero() {
       aria-labelledby="hero-heading"
       className="relative isolate overflow-hidden bg-[var(--color-navy-900)] text-white"
     >
+      {hero.image && (
+        <div aria-hidden className="absolute inset-0">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={hero.image}
+            alt=""
+            className="h-full w-full object-cover opacity-35"
+          />
+        </div>
+      )}
       <div
         aria-hidden
         className="pointer-events-none absolute -right-[18%] -top-[22%] aspect-square w-[62rem] max-w-[120vw] sm:-right-[8%] lg:-top-[28%]"

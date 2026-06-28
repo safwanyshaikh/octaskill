@@ -49,6 +49,7 @@ export type Insight = {
   title: string;
   date: string;
   excerpt: string;
+  image?: string;
 };
 
 export type SiteContent = {
@@ -58,6 +59,8 @@ export type SiteContent = {
     supporting: string;
     primaryCta: CTA;
     secondaryCta: CTA;
+    /** Optional background image behind the globe/gradient. */
+    image?: string;
   };
   metrics: Metric[];
   philosophy: {

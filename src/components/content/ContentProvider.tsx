@@ -1,69 +1,28 @@
 "use client";
 
-import {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-  type ReactNode,
-} from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import type { SiteContent } from "@/lib/content-types";
-import { defaultContent } from "@/content/defaults";
-import { loadContent, saveContent, clearContent } from "@/lib/content-store";
 
-type ContentContextValue = {
-  content: SiteContent;
-  /** True once localStorage overrides have hydrated (client only). */
-  hydrated: boolean;
-  /** Replace the whole content tree (used by the editor). */
-  setContent: (next: SiteContent) => void;
-  /** Persist the current content to localStorage. */
-  publish: (next: SiteContent) => void;
-  /** Reset to built-in defaults. */
-  reset: () => void;
-};
+type ContentContextValue = { content: SiteContent };
 
 const ContentContext = createContext<ContentContextValue | null>(null);
 
-export function ContentProvider({ children }: { children: ReactNode }) {
-  // Start from defaults so the server render and first client render match,
-  // then hydrate any localStorage overrides after mount (no hydration error).
-  const [content, setContentState] = useState<SiteContent>(defaultContent);
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setContentState(loadContent());
-    setHydrated(true);
-
-    // Reflect edits made in another tab (e.g. the /admin editor).
-    const onStorage = () => setContentState(loadContent());
-    window.addEventListener("storage", onStorage);
-    return () => window.removeEventListener("storage", onStorage);
-  }, []);
-
-  const setContent = useCallback((next: SiteContent) => {
-    setContentState(next);
-  }, []);
-
-  const publish = useCallback((next: SiteContent) => {
-    setContentState(next);
-    saveContent(next);
-  }, []);
-
-  const reset = useCallback(() => {
-    clearContent();
-    setContentState(defaultContent);
-  }, []);
-
-  const value = useMemo(
-    () => ({ content, hydrated, setContent, publish, reset }),
-    [content, hydrated, setContent, publish, reset],
-  );
-
+/**
+ * Provides the published content (fetched on the server and passed in as
+ * `initial`) to all section components. The public site is the read side; the
+ * /admin Content Studio is the write side and talks to the API directly.
+ */
+export function ContentProvider({
+  initial,
+  children,
+}: {
+  initial: SiteContent;
+  children: ReactNode;
+}) {
   return (
-    <ContentContext.Provider value={value}>{children}</ContentContext.Provider>
+    <ContentContext.Provider value={{ content: initial }}>
+      {children}
+    </ContentContext.Provider>
   );
 }
 

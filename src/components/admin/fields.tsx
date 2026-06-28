@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 
 const labelCls =
   "block text-xs font-medium uppercase tracking-[0.14em] text-[var(--color-muted)]";
@@ -80,30 +80,37 @@ export function NumberField({
   );
 }
 
-/** Image picker: upload a file (stored as a data URL) or paste a URL. */
+/** Image picker: upload a file (stored on the server) or paste a URL. */
 export function ImageField({
   label,
   value,
   onChange,
+  upload,
   name,
 }: {
   label: string;
   value: string | undefined;
   onChange: (v: string) => void;
+  /** Uploads the file and resolves to its public URL. */
+  upload: (file: File) => Promise<string>;
   name: string;
 }) {
   const fileRef = useRef<HTMLInputElement>(null);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const onFile = (file: File | undefined) => {
+  async function onFile(file: File | undefined) {
     if (!file) return;
-    if (file.size > 1_500_000) {
-      alert("Please use an image under ~1.5 MB (stored in your browser).");
-      return;
+    setBusy(true);
+    setError(null);
+    try {
+      onChange(await upload(file));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Upload failed");
+    } finally {
+      setBusy(false);
     }
-    const reader = new FileReader();
-    reader.onload = () => onChange(String(reader.result));
-    reader.readAsDataURL(file);
-  };
+  }
 
   return (
     <div>
@@ -127,16 +134,17 @@ export function ImageField({
           <input
             className={inputCls.replace("mt-2 ", "")}
             placeholder="https://… image URL"
-            value={value && !value.startsWith("data:") ? value : ""}
+            value={value ?? ""}
             onChange={(e) => onChange(e.target.value)}
           />
           <div className="flex items-center gap-2">
             <button
               type="button"
+              disabled={busy}
               onClick={() => fileRef.current?.click()}
-              className="rounded-md border border-[var(--color-grey-200)] px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] hover:border-[var(--color-gold)]"
+              className="rounded-md border border-[var(--color-grey-200)] px-3 py-1.5 text-xs font-medium text-[var(--color-ink)] hover:border-[var(--color-gold)] disabled:opacity-50"
             >
-              Upload image
+              {busy ? "Uploading…" : "Upload image"}
             </button>
             {value && (
               <button
@@ -148,6 +156,7 @@ export function ImageField({
               </button>
             )}
           </div>
+          {error && <p className="text-xs text-red-600">{error}</p>}
           <input
             ref={fileRef}
             type="file"

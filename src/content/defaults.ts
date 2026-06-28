@@ -14,6 +14,7 @@ export const defaultContent: SiteContent = {
       "Building the infrastructure that enables global enterprises to discover, verify and deploy human intelligence.",
     primaryCta: { label: "Explore Platform", href: "/#platform" },
     secondaryCta: { label: "Enterprise Solutions", href: "/contact" },
+    image: "",
   },
 
   metrics: [

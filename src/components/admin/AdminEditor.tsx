@@ -1,8 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useContent } from "@/components/content/ContentProvider";
-import { loadContent } from "@/lib/content-store";
+import {
+  fetchContent,
+  saveContent,
+  uploadImage,
+} from "@/lib/admin-client";
 import { defaultContent } from "@/content/defaults";
 import {
   sectionKeys,
@@ -21,27 +24,40 @@ import {
 
 const uid = () => Math.random().toString(36).slice(2, 9);
 
-export function AdminEditor() {
-  const { publish, reset } = useContent();
+type Upload = (file: File) => Promise<string>;
+
+export function AdminEditor({ password }: { password: string }) {
   const [draft, setDraft] = useState<SiteContent>(defaultContent);
   const [active, setActive] = useState<SectionKey>("hero");
-  const [saved, setSaved] = useState(false);
+  const [status, setStatus] = useState<"idle" | "saving" | "saved" | "error">(
+    "idle",
+  );
+  const [loaded, setLoaded] = useState(false);
   const importRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    setDraft(loadContent());
+    fetchContent()
+      .then((c) => setDraft(c))
+      .catch(() => {})
+      .finally(() => setLoaded(true));
   }, []);
 
-  // --- helpers -------------------------------------------------------------
+  const upload: Upload = (file) => uploadImage(file, password);
+
   function patch<K extends SectionKey>(key: K, partial: Partial<SiteContent[K]>) {
     setDraft((d) => ({ ...d, [key]: { ...d[key], ...partial } }));
-    setSaved(false);
+    setStatus("idle");
   }
 
-  function save() {
-    publish(draft);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+  async function save() {
+    setStatus("saving");
+    try {
+      await saveContent(draft, password);
+      setStatus("saved");
+      setTimeout(() => setStatus("idle"), 2000);
+    } catch {
+      setStatus("error");
+    }
   }
 
   function exportJson() {
@@ -62,7 +78,7 @@ export function AdminEditor() {
     reader.onload = () => {
       try {
         setDraft(JSON.parse(String(reader.result)));
-        setSaved(false);
+        setStatus("idle");
       } catch {
         alert("That file is not valid JSON.");
       }
@@ -70,13 +86,29 @@ export function AdminEditor() {
     reader.readAsText(file);
   }
 
-  function resetAll() {
-    if (!confirm("Reset all content to the built-in defaults?")) return;
-    reset();
+  async function resetAll() {
+    if (!confirm("Reset all content to the built-in defaults and publish?"))
+      return;
     setDraft(defaultContent);
+    setStatus("saving");
+    try {
+      await saveContent(defaultContent, password);
+      setStatus("saved");
+      setTimeout(() => setStatus("idle"), 2000);
+    } catch {
+      setStatus("error");
+    }
   }
 
-  // --- toolbar -------------------------------------------------------------
+  const saveLabel =
+    status === "saving"
+      ? "Saving…"
+      : status === "saved"
+        ? "Saved ✓"
+        : status === "error"
+          ? "Retry"
+          : "Publish";
+
   return (
     <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-ink)]">
       <header className="sticky top-0 z-10 border-b border-[var(--color-grey-200)] bg-white/90 backdrop-blur">
@@ -86,7 +118,7 @@ export function AdminEditor() {
               WORKFORCE · CONTENT STUDIO
             </p>
             <p className="text-xs text-[var(--color-muted)]">
-              Edits save to this browser. Export JSON to publish for everyone.
+              Publishing saves to the shared store — live for every visitor.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -107,7 +139,7 @@ export function AdminEditor() {
               onClick={exportJson}
               className="rounded-full border border-[var(--color-grey-200)] px-4 py-2 text-sm font-medium hover:border-[var(--color-gold)]"
             >
-              Export JSON
+              Export
             </button>
             <button
               onClick={resetAll}
@@ -119,7 +151,7 @@ export function AdminEditor() {
               onClick={save}
               className="rounded-full bg-[var(--color-gold)] px-5 py-2 text-sm font-semibold text-[var(--color-navy-900)] hover:bg-[var(--color-gold-soft)]"
             >
-              {saved ? "Saved ✓" : "Save"}
+              {saveLabel}
             </button>
             <input
               ref={importRef}
@@ -133,7 +165,6 @@ export function AdminEditor() {
       </header>
 
       <div className="mx-auto grid max-w-[80rem] gap-8 px-6 py-8 lg:grid-cols-[16rem_1fr]">
-        {/* Tabs */}
         <nav className="flex h-max flex-wrap gap-2 lg:sticky lg:top-24 lg:flex-col">
           {sectionKeys.map((key) => (
             <button
@@ -150,26 +181,27 @@ export function AdminEditor() {
           ))}
         </nav>
 
-        {/* Form */}
         <div className="grid max-w-3xl gap-5">
           <h1 className="font-[family-name:var(--font-display)] text-2xl font-semibold">
             {sectionLabels[active]}
           </h1>
-          {renderTab(active, draft, patch, setDraft)}
+          {!loaded ? (
+            <p className="text-sm text-[var(--color-muted)]">Loading…</p>
+          ) : (
+            renderTab(active, draft, patch, setDraft, upload)
+          )}
         </div>
       </div>
     </div>
   );
 }
 
-// ---------------------------------------------------------------------------
-// Per-section forms
-// ---------------------------------------------------------------------------
 function renderTab(
   key: SectionKey,
   d: SiteContent,
   patch: <K extends SectionKey>(k: K, p: Partial<SiteContent[K]>) => void,
   setDraft: React.Dispatch<React.SetStateAction<SiteContent>>,
+  upload: Upload,
 ) {
   switch (key) {
     case "hero":
@@ -178,6 +210,7 @@ function renderTab(
           <TextField label="Eyebrow" value={d.hero.eyebrow} onChange={(v) => patch("hero", { eyebrow: v })} />
           <TextField label="Tagline" value={d.hero.tagline} onChange={(v) => patch("hero", { tagline: v })} />
           <TextArea label="Supporting line" value={d.hero.supporting} onChange={(v) => patch("hero", { supporting: v })} />
+          <ImageField label="Background image (optional)" name="Hero" upload={upload} value={d.hero.image} onChange={(v) => patch("hero", { image: v })} />
           <div className="grid gap-4 sm:grid-cols-2">
             <TextField label="Primary button" value={d.hero.primaryCta.label} onChange={(v) => patch("hero", { primaryCta: { ...d.hero.primaryCta, label: v } })} />
             <TextField label="Primary link" value={d.hero.primaryCta.href} onChange={(v) => patch("hero", { primaryCta: { ...d.hero.primaryCta, href: v } })} />
@@ -264,7 +297,7 @@ function renderTab(
       return (
         <>
           <TextField label="Eyebrow" value={d.founder.eyebrow} onChange={(v) => patch("founder", { eyebrow: v })} />
-          <ImageField label="Founder photo" name={d.founder.name} value={d.founder.image} onChange={(v) => patch("founder", { image: v })} />
+          <ImageField label="Founder photo" name={d.founder.name} upload={upload} value={d.founder.image} onChange={(v) => patch("founder", { image: v })} />
           <div className="grid gap-4 sm:grid-cols-2">
             <TextField label="Name" value={d.founder.name} onChange={(v) => patch("founder", { name: v })} />
             <TextField label="Title" value={d.founder.title} onChange={(v) => patch("founder", { title: v })} />
@@ -281,7 +314,7 @@ function renderTab(
           <TextArea label="Intro" value={d.team.intro} onChange={(v) => patch("team", { intro: v })} />
           {d.team.members.map((m, i) => (
             <ItemCard key={m.id} title={`Member ${i + 1}`} onRemove={() => setDraft((s) => ({ ...s, team: { ...s.team, members: s.team.members.filter((x) => x.id !== m.id) } }))}>
-              <ImageField label="Photo" name={m.name} value={m.image} onChange={(v) => setDraft((s) => ({ ...s, team: { ...s.team, members: s.team.members.map((x) => x.id === m.id ? { ...x, image: v } : x) } }))} />
+              <ImageField label="Photo" name={m.name} upload={upload} value={m.image} onChange={(v) => setDraft((s) => ({ ...s, team: { ...s.team, members: s.team.members.map((x) => x.id === m.id ? { ...x, image: v } : x) } }))} />
               <div className="grid gap-4 sm:grid-cols-2">
                 <TextField label="Name" value={m.name} onChange={(v) => setDraft((s) => ({ ...s, team: { ...s.team, members: s.team.members.map((x) => x.id === m.id ? { ...x, name: v } : x) } }))} />
                 <TextField label="Role" value={m.role} onChange={(v) => setDraft((s) => ({ ...s, team: { ...s.team, members: s.team.members.map((x) => x.id === m.id ? { ...x, role: v } : x) } }))} />
@@ -322,6 +355,7 @@ function renderTab(
           <TextArea label="Intro" value={d.insights.intro} onChange={(v) => patch("insights", { intro: v })} />
           {d.insights.items.map((it, i) => (
             <ItemCard key={it.id} title={`Article ${i + 1}`} onRemove={() => setDraft((s) => ({ ...s, insights: { ...s.insights, items: s.insights.items.filter((x) => x.id !== it.id) } }))}>
+              <ImageField label="Thumbnail" name={it.title} upload={upload} value={it.image} onChange={(v) => setDraft((s) => ({ ...s, insights: { ...s.insights, items: s.insights.items.map((x) => x.id === it.id ? { ...x, image: v } : x) } }))} />
               <div className="grid gap-4 sm:grid-cols-[1fr_10rem]">
                 <TextField label="Title" value={it.title} onChange={(v) => setDraft((s) => ({ ...s, insights: { ...s.insights, items: s.insights.items.map((x) => x.id === it.id ? { ...x, title: v } : x) } }))} />
                 <TextField label="Date" value={it.date} onChange={(v) => setDraft((s) => ({ ...s, insights: { ...s.insights, items: s.insights.items.map((x) => x.id === it.id ? { ...x, date: v } : x) } }))} />
@@ -329,7 +363,7 @@ function renderTab(
               <TextArea label="Excerpt" value={it.excerpt} onChange={(v) => setDraft((s) => ({ ...s, insights: { ...s.insights, items: s.insights.items.map((x) => x.id === it.id ? { ...x, excerpt: v } : x) } }))} />
             </ItemCard>
           ))}
-          <AddButton onClick={() => setDraft((s) => ({ ...s, insights: { ...s.insights, items: [...s.insights.items, { id: uid(), title: "New article", date: "", excerpt: "" }] } }))}>+ Add article</AddButton>
+          <AddButton onClick={() => setDraft((s) => ({ ...s, insights: { ...s.insights, items: [...s.insights.items, { id: uid(), title: "New article", date: "", excerpt: "", image: "" }] } }))}>+ Add article</AddButton>
         </>
       );
 

@@ -2,29 +2,37 @@
 
 import { useEffect, useState } from "react";
 import { AdminEditor } from "@/components/admin/AdminEditor";
-import { ADMIN_PASSWORD, AUTH_KEY } from "@/lib/content-store";
+import { AUTH_KEY, getStoredPassword, verifyPassword } from "@/lib/admin-client";
 
 /**
- * Content Studio. The password gate is a client-side convenience only — it
- * keeps the editor out of casual reach but is NOT real security (the check
- * runs in the browser). For production, put this behind real auth / middleware.
+ * Content Studio gate. The password is verified by the server (POST /api/auth)
+ * and every write re-checks it, so this is real server-side enforcement — not
+ * just a client guard. The password is kept in sessionStorage for the session.
  */
 export default function AdminPage() {
-  const [authed, setAuthed] = useState(false);
-  const [ready, setReady] = useState(false);
+  const [password, setPassword] = useState<string | null>(null);
   const [value, setValue] = useState("");
   const [error, setError] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setAuthed(sessionStorage.getItem(AUTH_KEY) === "1");
-    setReady(true);
+    const stored = getStoredPassword();
+    if (stored) {
+      verifyPassword(stored).then((ok) => {
+        if (ok) setPassword(stored);
+        setReady(true);
+      });
+    } else {
+      setReady(true);
+    }
   }, []);
 
-  function submit(e: React.FormEvent) {
+  async function submit(e: React.FormEvent) {
     e.preventDefault();
-    if (value === ADMIN_PASSWORD) {
-      sessionStorage.setItem(AUTH_KEY, "1");
-      setAuthed(true);
+    const ok = await verifyPassword(value);
+    if (ok) {
+      sessionStorage.setItem(AUTH_KEY, value);
+      setPassword(value);
       setError(false);
     } else {
       setError(true);
@@ -32,7 +40,7 @@ export default function AdminPage() {
   }
 
   if (!ready) return null;
-  if (authed) return <AdminEditor />;
+  if (password) return <AdminEditor password={password} />;
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-[var(--color-navy-900)] px-6 text-white">
@@ -70,7 +78,7 @@ export default function AdminPage() {
           Enter
         </button>
         <p className="mt-4 text-center text-[0.7rem] text-white/30">
-          Demo password: workforce
+          Authorised access only
         </p>
       </form>
     </main>

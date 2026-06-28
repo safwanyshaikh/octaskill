@@ -1,3 +1,5 @@
+import { ContentProvider } from "@/components/content/ContentProvider";
+import { getContent } from "@/lib/server/content-repo";
 import { Hero } from "@/components/sections/Hero";
 import { Metrics } from "@/components/sections/Metrics";
 import { Philosophy } from "@/components/sections/Philosophy";
@@ -12,22 +14,29 @@ import { Insights } from "@/components/sections/Insights";
 import { Global } from "@/components/sections/Global";
 import { FinalCta } from "@/components/sections/FinalCta";
 
-export default function HomePage() {
+// Render per request so published edits go live for every visitor immediately.
+export const dynamic = "force-dynamic";
+
+export default async function HomePage() {
+  const content = await getContent();
+
   return (
-    <main id="main">
-      <Hero />
-      <Metrics />
-      <Philosophy />
-      <IntelligenceLayers />
-      <Solutions />
-      <Industries />
-      <Differentiators />
-      <Founder />
-      <Team />
-      <Testimonials />
-      <Insights />
-      <Global />
-      <FinalCta />
-    </main>
+    <ContentProvider initial={content}>
+      <main id="main">
+        <Hero />
+        <Metrics />
+        <Philosophy />
+        <IntelligenceLayers />
+        <Solutions />
+        <Industries />
+        <Differentiators />
+        <Founder />
+        <Team />
+        <Testimonials />
+        <Insights />
+        <Global />
+        <FinalCta />
+      </main>
+    </ContentProvider>
   );
 }

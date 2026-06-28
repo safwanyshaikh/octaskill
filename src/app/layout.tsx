@@ -4,7 +4,6 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 import { site } from "@/lib/site";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { ContentProvider } from "@/components/content/ContentProvider";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -67,7 +66,7 @@ export default function RootLayout({
     >
       <body>
         <JsonLd />
-        <ContentProvider>{children}</ContentProvider>
+        {children}
       </body>
     </html>
   );

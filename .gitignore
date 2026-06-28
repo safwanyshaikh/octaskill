@@ -29,3 +29,7 @@ next-env.d.ts
 
 # vercel
 .vercel
+
+# content store + uploads (runtime data)
+/.data
+/public/uploads
