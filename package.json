@@ -1,5 +1,30 @@
 {
-  "name": "alyousuf-backend",
+  "name": "workforce-web",
   "version": "1.0.0",
-  "type": "module"
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "20.x"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "geist": "^1.3.1",
+    "next": "^16.2.9",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.0",
+    "@types/node": "^20.17.16",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "postcss": "^8.5.1",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.7.3"
+  }
 }
